@@ -39,4 +39,4 @@ Minimal Viable Outcome:
 
 - Week N (Final)
     1. Menu Screen and Level Branching: different levels utilize same code as standard level/as each other, just with a different item asset list likely
-    2. Goal 2
+    2. Polishing
