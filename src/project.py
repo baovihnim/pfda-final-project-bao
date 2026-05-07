@@ -14,7 +14,10 @@ def main():
             elif event.type == pygame.KEYDOWN: 
                 if event.key == pygame.K_ESCAPE:
                     running = False
-    
+        black = pygame.Color(0,0,0)
+        screen.fill(black)
+        pygame.display.flip()
+    pygame.quit()
 
 if __name__ == "__main__": 
     main()
