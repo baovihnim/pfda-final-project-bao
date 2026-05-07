@@ -1,5 +1,15 @@
 import pygame
+from PIL import Image
 import random
+
+# grab images from image folder 
+# randomize image coordinates while also preventing overlap
+# random select an image to be the "object to find" 
+# make the coordinates of selected image clickable/the area being clicked makes pygame running = false
+# message to player of "I spy with my little eye... something [image/object name]!" pull file name and strip .png
+
+# item counter / multiple items spied in one instance? 
+# selecting designated coordinates then would change the counter and edit the image selected, rather than leading immediately for an end game
 
 def main(): 
     pygame.init()
@@ -14,6 +24,9 @@ def main():
             elif event.type == pygame.KEYDOWN: 
                 if event.key == pygame.K_ESCAPE:
                     running = False
+           # else event.type == pygame.MOUSEBUTTONDOWN: 
+                # if [point and click on the proper image] 
+                    #running = False
         black = pygame.Color(0,0,0)
         screen.fill(black)
         pygame.display.flip()
