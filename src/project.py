@@ -22,10 +22,10 @@ def item_placement(screen):
         image = os.path.join(folder, filename)
         img = pygame.image.load(image).convert_alpha()
         img_final = pygame.transform.scale(img, (100, 100))
-        x_coord = random.randrange(50, 1800)
-        y_coord = random.randrange(50, 1000)
+        x_coord = random.randrange(300, 1500)
+        y_coord = random.randrange(200, 800)
         screen.blit(img_final, (x_coord, y_coord))
-    pygame.display.flip()
+    return True
 
 def main(): 
     pygame.init()
@@ -33,6 +33,7 @@ def main():
     resolution = (1920, 1080) 
     screen = pygame.display.set_mode(resolution)
     running = True
+    items_placed = False
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -46,7 +47,9 @@ def main():
         # play game :) 
         gamestate = "play"
         if(gamestate == "play"):
-            item_placement(screen)
+            if not items_placed:
+                items_placed = item_placement(screen)
+        pygame.display.flip()
         
     pygame.quit()
 
