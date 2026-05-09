@@ -12,6 +12,9 @@ import os
 # item counter / multiple items spied in one instance? 
 # selecting designated coordinates then would change the counter and edit the image selected, rather than leading immediately for an end game
 
+# def image_resize():
+    # for filename in os.listdir(folder):
+
 
 def main(): 
     pygame.init()
@@ -33,8 +36,9 @@ def main():
         folder = "items"
         for filename in os.listdir(folder):
             image = os.path.join(folder, filename)
-            img = pygame.image.load(image)
-            screen.blit(img)
+            img = pygame.image.load(image).convert_alpha()
+            img_final = pygame.transform.scale(img, (100, 100))
+            screen.blit(img_final)
         pygame.display.flip()
     pygame.quit()
 
