@@ -15,6 +15,17 @@ import os
 # def image_resize():
     # for filename in os.listdir(folder):
 
+def item_placement(screen): 
+    screen.fill(pygame.Color(0,0,0))
+    folder = "items"
+    for filename in os.listdir(folder):
+        image = os.path.join(folder, filename)
+        img = pygame.image.load(image).convert_alpha()
+        img_final = pygame.transform.scale(img, (100, 100))
+        x_coord = random.randrange(50, 1800)
+        y_coord = random.randrange(50, 1000)
+        screen.blit(img_final, (x_coord, y_coord))
+    pygame.display.flip()
 
 def main(): 
     pygame.init()
@@ -33,16 +44,10 @@ def main():
                 # if [point and click on the proper image] 
                     #running = False
         # play game :) 
-        screen.fill(pygame.Color(0,0,0))
-        folder = "items"
-        for filename in os.listdir(folder):
-            image = os.path.join(folder, filename)
-            img = pygame.image.load(image).convert_alpha()
-            img_final = pygame.transform.scale(img, (100, 100))
-            x_coord = random.randrange(50, 1800)
-            y_coord = random.randrange(50, 1000)
-            screen.blit(img_final, (x_coord, y_coord))
-        pygame.display.flip()
+        gamestate = "play"
+        if(gamestate == "play"):
+            item_placement(screen)
+        
     pygame.quit()
 
 if __name__ == "__main__": 
