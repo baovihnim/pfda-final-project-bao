@@ -30,7 +30,11 @@ def item_placement(screen):
         mask = pygame.mask.from_surface(img_final)
 
         items.append((rect, mask, filename))
-    return True
+    
+    selected_item = random.randrange(0, len(items))
+    (rect, mask, filename) = items[selected_item]
+    print("I spy with my little eye ... a " + filename + "!")
+    return True, (rect, mask, filename)
 
 def main(): 
     pygame.init()
@@ -53,7 +57,10 @@ def main():
         gamestate = "play"
         if(gamestate == "play"):
             if not items_placed:
-                items_placed = item_placement(screen)
+                items_placed, (return_rect, return_mask, return_filename) = item_placement(screen)
+                selected_rect = return_rect
+                selected_mask = return_mask
+                selected_filename = return_filename 
         if(gamestate == "win"): 
             screen.fill(pygame.Color(0,100,0))
             font = pygame.font.SysFont("Arial", 32)
@@ -62,6 +69,9 @@ def main():
             screen.blit(text, text_rect)
             #game reset
             items_placed = False
+            selected_rect = None
+            selected_mask = None
+            selected_filename = ""
         pygame.display.flip()
         
     pygame.quit()
