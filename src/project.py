@@ -35,7 +35,7 @@ def main():
     pygame.display.set_caption("I Spy")
     resolution = (1920, 1080) 
     screen = pygame.display.set_mode(resolution)
-    font = pygame.font.SysFont("Carlito", 32)
+    font = pygame.font.SysFont("Comic Sans MS", 32)
     running = True
     items_placed = False
     gamestate = "start"
