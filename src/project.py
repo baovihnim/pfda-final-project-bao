@@ -28,13 +28,15 @@ def item_placement(screen):
         # bounding box for item for point and click potentially
         rect = img_final.get_rect(topleft=(x_coord, y_coord))
         mask = pygame.mask.from_surface(img_final)
+        name, ext = os.path.splitext(filename)
+        print(name)
 
-        items.append((rect, mask, filename))
+        items.append((rect, mask, name))
     
     selected_item = random.randrange(0, len(items))
-    (rect, mask, filename) = items[selected_item]
+    (rect, mask, name) = items[selected_item]
     # print("I spy with my little eye ... a " + filename + "!")
-    return True, (rect, mask, filename)
+    return True, (rect, mask, name)
 
 def main(): 
     pygame.init()
