@@ -32,13 +32,16 @@ def main():
            # else event.type == pygame.MOUSEBUTTONDOWN: 
                 # if [point and click on the proper image] 
                     #running = False
+        # play game :) 
         screen.fill(pygame.Color(0,0,0))
         folder = "items"
         for filename in os.listdir(folder):
             image = os.path.join(folder, filename)
             img = pygame.image.load(image).convert_alpha()
             img_final = pygame.transform.scale(img, (100, 100))
-            screen.blit(img_final)
+            x_coord = random.randrange(50, 1800)
+            y_coord = random.randrange(50, 1000)
+            screen.blit(img_final, (x_coord, y_coord))
         pygame.display.flip()
     pygame.quit()
 
