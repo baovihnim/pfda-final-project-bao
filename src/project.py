@@ -45,6 +45,7 @@ def main():
     screen = pygame.display.set_mode(resolution)
     running = True
     items_placed = False
+    gamestate = "start"
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -52,6 +53,9 @@ def main():
             elif event.type == pygame.KEYDOWN: 
                 if event.key == pygame.K_ESCAPE:
                     running = False 
+                elif event.key == pygame.K_SPACE: 
+                    if(gamestate != "play"):
+                        gamestate = "play"
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if gamestate == "play":
                     mx, my = pygame.mouse.get_pos()
@@ -60,9 +64,7 @@ def main():
                     if 0 <= distance_x < selected_rect.width and 0 <= distance_y < selected_rect.height: 
                         if selected_mask.get_at((distance_x, distance_y)):
                             gamestate = "win"
-                # if [point and click on the proper image] 
         # play game :) 
-        gamestate = "play"
         font = pygame.font.SysFont("Arial", 32)
         if(gamestate == "play"):
             if not items_placed:
