@@ -15,8 +15,9 @@ import os
     # for filename in os.listdir(folder):
 
 def item_placement(screen): 
-    screen.fill(pygame.Color(0,0,0))
+    screen.fill(pygame.Color(0,0,15))
     folder = "items"
+    items = [ ]
     for filename in os.listdir(folder):
         image = os.path.join(folder, filename)
         img = pygame.image.load(image).convert_alpha()
@@ -24,6 +25,11 @@ def item_placement(screen):
         x_coord = random.randrange(300, 1500)
         y_coord = random.randrange(200, 800)
         screen.blit(img_final, (x_coord, y_coord))
+        # bounding box for item for point and click potentially
+        rect = img_final.get_rect(topleft=(x_coord, y_coord))
+        mask = pygame.mask.from_surface(img_final)
+
+        items.append((rect, mask, filename))
     return True
 
 def main(): 
