@@ -12,13 +12,6 @@ import os
 # item counter / multiple items spied in one instance? 
 # selecting designated coordinates then would change the counter and edit the image selected, rather than leading immediately for an end game
 
-def image_placement(path): 
-    # pngs should be placed in "items" folder within src
-    if os.path.exists(path):
-        for img in path: 
-            img_position = [random.randrange(1,1920), random.randrange(1,1080)]
-            img.paste(img_position, mask=img.getchannel('A'))
-
 
 def main(): 
     pygame.init()
@@ -36,8 +29,12 @@ def main():
            # else event.type == pygame.MOUSEBUTTONDOWN: 
                 # if [point and click on the proper image] 
                     #running = False
-        black = pygame.Color(0,0,0)
-        screen.fill(black)
+        screen.fill(pygame.Color(0,0,0))
+        folder = "items"
+        for filename in os.listdir(folder):
+            image = os.path.join(folder, filename)
+            img = pygame.image.load(image)
+            screen.blit(img)
         pygame.display.flip()
     pygame.quit()
 
