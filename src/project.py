@@ -33,7 +33,7 @@ def item_placement(screen):
     
     selected_item = random.randrange(0, len(items))
     (rect, mask, filename) = items[selected_item]
-    print("I spy with my little eye ... a " + filename + "!")
+    # print("I spy with my little eye ... a " + filename + "!")
     return True, (rect, mask, filename)
 
 def main(): 
@@ -49,21 +49,30 @@ def main():
                 running = False
             elif event.type == pygame.KEYDOWN: 
                 if event.key == pygame.K_ESCAPE:
-                    running = False
-           # else event.type == pygame.MOUSEBUTTONDOWN: 
+                    running = False 
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if gamestate == "play":
+                    mx, my = pygame.mouse.get_pos()
+                    distance_x = mx - selected_rect.x
+                    distance_y = my - selected_rect.y 
+                    if 0 <= distance_x < selected_rect.width and 0 <= distance_y < selected_rect.height: 
+                        if selected_mask.get_at((distance_x, distance_y)):
+                            gamestate = "win"
                 # if [point and click on the proper image] 
-                    #running = False
         # play game :) 
         gamestate = "play"
+        font = pygame.font.SysFont("Arial", 32)
         if(gamestate == "play"):
             if not items_placed:
                 items_placed, (return_rect, return_mask, return_filename) = item_placement(screen)
                 selected_rect = return_rect
                 selected_mask = return_mask
                 selected_filename = return_filename 
+                instruction = font.render(("I spy with my little eye ... a " + selected_filename + "!"), True, (255, 255, 255))
+                instruction_rect = instruction.get_rect(center=(960, 900))
+                screen.blit(instruction, instruction_rect)
         if(gamestate == "win"): 
             screen.fill(pygame.Color(0,100,0))
-            font = pygame.font.SysFont("Arial", 32)
             text = font.render("You found it!", True, (255, 255, 255))
             text_rect = text.get_rect(center=(960,540))
             screen.blit(text, text_rect)
