@@ -49,6 +49,12 @@ def main():
         if(gamestate == "play"):
             if not items_placed:
                 items_placed = item_placement(screen)
+        if(gamestate == "win"): 
+            screen.fill(pygame.Color(0,100,0))
+            font = pygame.font.SysFont("Arial", 32)
+            text = font.render("You found it!", True, (255, 255, 255))
+            text_rect = text.get_rect(center=(960,540))
+            screen.blit(text, text_rect)
         pygame.display.flip()
         
     pygame.quit()
