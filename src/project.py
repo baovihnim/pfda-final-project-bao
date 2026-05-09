@@ -1,6 +1,7 @@
 import pygame
 from PIL import Image
 import random
+import os
 
 # grab images from image folder 
 # randomize image coordinates while also preventing overlap
@@ -10,6 +11,14 @@ import random
 
 # item counter / multiple items spied in one instance? 
 # selecting designated coordinates then would change the counter and edit the image selected, rather than leading immediately for an end game
+
+def image_placement(path): 
+    # pngs should be placed in "items" folder within src
+    if os.path.exists(path):
+        for img in path: 
+            img_position = [random.randrange(1,1920), random.randrange(1,1080)]
+            img.paste(img_position, mask=img.getchannel('A'))
+
 
 def main(): 
     pygame.init()
