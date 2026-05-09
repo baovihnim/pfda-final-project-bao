@@ -1,5 +1,4 @@
 import pygame
-from PIL import Image
 import random
 import os
 
@@ -55,6 +54,8 @@ def main():
             text = font.render("You found it!", True, (255, 255, 255))
             text_rect = text.get_rect(center=(960,540))
             screen.blit(text, text_rect)
+            #game reset
+            items_placed = False
         pygame.display.flip()
         
     pygame.quit()
