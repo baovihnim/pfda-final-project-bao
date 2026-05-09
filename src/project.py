@@ -2,17 +2,11 @@ import pygame
 import random
 import os
 
-# grab images from image folder 
-# randomize image coordinates while also preventing overlap
-# random select an image to be the "object to find" 
-# make the coordinates of selected image clickable/the area being clicked makes pygame running = false
-# message to player of "I spy with my little eye... something [image/object name]!" pull file name and strip .png
-
+# TO-DO:
+# proper menu screen? 
 # item counter / multiple items spied in one instance? 
 # selecting designated coordinates then would change the counter and edit the image selected, rather than leading immediately for an end game
 
-# def image_resize():
-    # for filename in os.listdir(folder):
 
 def item_placement(screen): 
     screen.fill(pygame.Color(0,0,15))
@@ -25,17 +19,15 @@ def item_placement(screen):
         x_coord = random.randrange(300, 1500)
         y_coord = random.randrange(200, 800)
         screen.blit(img_final, (x_coord, y_coord))
-        # bounding box for item for point and click potentially
+        
         rect = img_final.get_rect(topleft=(x_coord, y_coord))
         mask = pygame.mask.from_surface(img_final)
         name, ext = os.path.splitext(filename)
-        print(name)
-
+    
         items.append((rect, mask, name))
     
     selected_item = random.randrange(0, len(items))
     (rect, mask, name) = items[selected_item]
-    # print("I spy with my little eye ... a " + filename + "!")
     return True, (rect, mask, name)
 
 def main(): 
@@ -48,7 +40,7 @@ def main():
     items_placed = False
     gamestate = "start"
     if (gamestate == "start"): 
-        start_message = font.render("I SPY ...\nPRESS SPACE TO START\npress esc to quit", True, (255, 255, 255))
+        start_message = font.render("I SPY ...\n\nPRESS SPACE TO START\npress esc to quit", True, (255, 255, 255))
         start_rect = start_message.get_rect(center=(960,540))
         screen.blit(start_message, start_rect)
     while running:
