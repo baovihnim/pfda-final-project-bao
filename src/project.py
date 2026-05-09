@@ -43,9 +43,14 @@ def main():
     pygame.display.set_caption("I Spy")
     resolution = (1920, 1080) 
     screen = pygame.display.set_mode(resolution)
+    font = pygame.font.SysFont("Carlito", 32)
     running = True
     items_placed = False
     gamestate = "start"
+    if (gamestate == "start"): 
+        start_message = font.render("I SPY ...\nPRESS SPACE TO START\npress esc to quit", True, (255, 255, 255))
+        start_rect = start_message.get_rect(center=(960,540))
+        screen.blit(start_message, start_rect)
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -65,7 +70,6 @@ def main():
                         if selected_mask.get_at((distance_x, distance_y)):
                             gamestate = "win"
         # play game :) 
-        font = pygame.font.SysFont("Arial", 32)
         if(gamestate == "play"):
             if not items_placed:
                 items_placed, (return_rect, return_mask, return_filename) = item_placement(screen)
@@ -76,7 +80,7 @@ def main():
                 instruction_rect = instruction.get_rect(center=(960, 900))
                 screen.blit(instruction, instruction_rect)
         if(gamestate == "win"): 
-            screen.fill(pygame.Color(0,100,0))
+            screen.fill(pygame.Color(0,50,15))
             text = font.render("You found it!", True, (255, 255, 255))
             text_rect = text.get_rect(center=(960,540))
             screen.blit(text, text_rect)
