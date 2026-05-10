@@ -15,10 +15,13 @@ def item_placement(screen):
     for filename in os.listdir(folder):
         image = os.path.join(folder, filename)
         img = pygame.image.load(image).convert_alpha()
-        divider = img.height // 175
+        if img.width > img. height:
+            divider = img.width // 175
+        else:
+            divider = img.height // 175
         img_final = pygame.transform.scale(img, ((img.width // divider), (img.height // divider)))
-        x_coord = random.randrange(300, 1500)
-        y_coord = random.randrange(200, 800)
+        x_coord = random.randrange(300, 1400)
+        y_coord = random.randrange(200, 700)
         screen.blit(img_final, (x_coord, y_coord))
         
         rect = img_final.get_rect(topleft=(x_coord, y_coord))
