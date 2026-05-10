@@ -40,6 +40,7 @@ def main():
     running = True
     items_placed = False
     gamestate = "start"
+    win_counter = 0
     if (gamestate == "start"): 
         start_message = font.render("I SPY ...\n\nPRESS SPACE TO START\npress esc to quit", True, (255, 255, 255))
         start_rect = start_message.get_rect(center=(960,540))
@@ -61,6 +62,7 @@ def main():
                     distance_y = my - selected_rect.y 
                     if 0 <= distance_x < selected_rect.width and 0 <= distance_y < selected_rect.height: 
                         if selected_mask.get_at((distance_x, distance_y)):
+                            win_counter += 1
                             gamestate = "win"
         # play game :) 
         if(gamestate == "play"):
@@ -74,7 +76,7 @@ def main():
                 screen.blit(instruction, instruction_rect)
         if(gamestate == "win"): 
             screen.fill(pygame.Color(0,50,15))
-            text = font.render("You found it!", True, (255, 255, 255))
+            text = font.render((f"YOU FOUND IT!\n\nitems found: {win_counter}"), True, (255, 255, 255))
             text_rect = text.get_rect(center=(960,540))
             screen.blit(text, text_rect)
             #game reset
