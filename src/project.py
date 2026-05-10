@@ -15,7 +15,8 @@ def item_placement(screen):
     for filename in os.listdir(folder):
         image = os.path.join(folder, filename)
         img = pygame.image.load(image).convert_alpha()
-        img_final = pygame.transform.scale(img, (100, 100))
+        divider = img.height // 175
+        img_final = pygame.transform.scale(img, ((img.width // divider), (img.height // divider)))
         x_coord = random.randrange(300, 1500)
         y_coord = random.randrange(200, 800)
         screen.blit(img_final, (x_coord, y_coord))
