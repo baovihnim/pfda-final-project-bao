@@ -31,14 +31,12 @@ def item_placement(screen):
         while i < 1000: 
             x_coord, y_coord = placement()
             img_rect = pygame.Rect(x_coord, y_coord, new_width, new_height)
+            rects = []
             for (rect, mask, name) in items:
                 item_rect = pygame.Rect((rect))
-            # doesnt seem to be testing every item against every item ..
-            try: 
-                if pygame.Rect.colliderect(img_rect, item_rect) == False:
-                    break
-            except: 
-                pass 
+                rects.append(item_rect)
+            if pygame.Rect.collidelistall(img_rect, rects) == []:
+                break
             i += 1
         screen.blit(img_final, (x_coord, y_coord))
         
