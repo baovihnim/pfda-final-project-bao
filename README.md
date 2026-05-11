@@ -26,6 +26,7 @@ Outside of the Markdown files and the python program itself, the repository cont
 ## Future Areas for Improvement
 - Return to menu: should be able to be navigatable from within the game to, if the player would like to quit the level and switch to a different one, rather than requiring them to quit the game entirely
 - Phantom level button: the buttons in which you choose the theme technically remain there the whole game; if the player were to accidentally hit it, it would reset the level/change the theme entirely. 
+- Phantom Item: if you click the same spot where the item was (technically still is) even though you are at the win screen, the win counter will continue to go up.
 - Part of the original proposal was that there were multiple findable items per screen. While I think the one item keeps the program simple, it would be interesting to have the originally intended multiple items to find and counter within the I Spy screen/level. 
 - I think an added challenge to the search could be fun, such as a timer. If the player doesn't find the item within a certain time, then they lose/automatically quit the level, rather than having it be an infinite loop until the player quits themself. Alternatively, it could be a timer that just tracks how long the player takes to find the item, so that they are trying to get faster and faster if they wish.
 - Aesthetics of the game: I think added backgrounds might be fun rather than just the screen filled with a single color. Items could better be sorted, by theme or otherwise, so that the levels look more cohesive. 
