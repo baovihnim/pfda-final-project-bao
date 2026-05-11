@@ -1,22 +1,22 @@
-## 🔎 **I Spy Screen** 
+# 🔎 **I Spy Screen** 
 Inspired by I Spy books, this code creates a similar experience: randomizing the positions of a selection of item images, and having the user search for a specified item within the randomized display. 
 
 When the program first starts up, there is a starter screen with instructions: esc key to quit, and space to play. Upon pressing the space key, a selection of randomized items will be displayed, and at the bottom of the screen will tell you what to look for. 
 
-*I spy with my little eye ... a _____!*
+> *I spy with my little eye ... a _____!*
 
 The user can then look for the item, and clicking it will bring them to a win screen. Pressing the space bar again will then repeat, with new randomized positions for the item. Each item found will increase a counter on the win screen, until the I Spy is exited and the counter resets. 
 
-# Repository
+## Repository
 < https://github.com/baovihnim/pfda-final-project-bao >
 
-# Demonstration Video
+## Demonstration Video
 <>
 
 # Repository Files
 Outside of the Markdown files and the python program itself, the repository contains a folder of the images that will be randomized within the display. Images are drawn by various friends of mine.
 
-# Design Considerations 
+## Design Considerations 
 - **Image Adjustment**: items are rescaled to the same dimensions (longest dimension = 175) which allows for all the items to fit in the screen and be roughly uniform in size to have a display that isn't too distracting/confusing. Their location coordinates are chosen through random number generators, which allows for every run of the game to be a little bit different and not too boring. 
 
 - **Collision Prevention**: When the coordinates for the image are first created, they are tested against the items already placed in the display. If the image rectangles collide, or overlap, then the coordinates for the item are regenerated. This is repeated until there is no overlap, to ensure all items can be clearly seen and to prevent the item needed to be found from being hidden by other items. 
