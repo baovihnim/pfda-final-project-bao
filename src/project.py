@@ -6,7 +6,16 @@ import os
 # proper menu screen? 
 # item counter / multiple items spied in one instance? 
 # selecting designated coordinates then would change the counter and edit the image selected, rather than leading immediately for an end game
+def collision(img_x, img_y, past_imgs):
+    # get coordinates of both current img and past imgs
+    # do coord comparison to determine if overlapping
+    # if too close then return false
+    return True
 
+def placement():
+    x_coord = random.randrange(300, 1400)
+    y_coord = random.randrange(200, 700)
+    return (x_coord, y_coord)
 
 def item_placement(screen): 
     screen.fill(pygame.Color(0,0,15))
@@ -20,8 +29,13 @@ def item_placement(screen):
         else:
             divider = img.height // 175
         img_final = pygame.transform.scale(img, ((img.width // divider), (img.height // divider)))
-        x_coord = random.randrange(300, 1400)
-        y_coord = random.randrange(200, 700)
+        
+        i = 0
+        while i < 100: 
+            x_coord, y_coord = placement()
+            if collision(x_coord, y_coord, items) == False:
+                break
+            i += 1
         screen.blit(img_final, (x_coord, y_coord))
         
         rect = img_final.get_rect(topleft=(x_coord, y_coord))
