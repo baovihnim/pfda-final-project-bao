@@ -7,15 +7,6 @@ import os
 # item counter / multiple items spied in one instance? 
 # selecting designated coordinates then would change the counter and edit the image selected, rather than leading immediately for an end game
 
-def collision(img_x, img_y, width, height, past_imgs):
-    # get coordinates of both current img and past imgs
-    # do coord comparison to determine if overlapping
-    # if far enough then return false
-    img_rect = pygame.Rect(img_x, img_y, width, height)
-    if not pygame.Rect.colliderect(img_rect, past_imgs.getRect):
-        return False
-    return True
-
 def placement():
     x_coord = random.randrange(300, 1400)
     y_coord = random.randrange(200, 700)
@@ -28,7 +19,7 @@ def item_placement(screen):
     for filename in os.listdir(folder):
         image = os.path.join(folder, filename)
         img = pygame.image.load(image).convert_alpha()
-        if img.width > img. height:
+        if img.width > img.height:
             divider = img.width // 175
         else:
             divider = img.height // 175
@@ -37,12 +28,17 @@ def item_placement(screen):
         img_final = pygame.transform.scale(img, (new_width, new_height))
         
         i = 0
-        while i < 100: 
+        while i < 1000: 
             x_coord, y_coord = placement()
             img_rect = pygame.Rect(x_coord, y_coord, new_width, new_height)
             for (rect, mask, name) in items:
-                if pygame.Rect.colliderect(img_rect, rect) == False:
+                item_rect = pygame.Rect((rect))
+            # doesnt seem to be testing every item against every item ..
+            try: 
+                if pygame.Rect.colliderect(img_rect, item_rect) == False:
                     break
+            except: 
+                pass 
             i += 1
         screen.blit(img_final, (x_coord, y_coord))
         
