@@ -114,17 +114,23 @@ def main():
                     #return to menu
                 if (wins == True): 
                     if event.key == pygame.K_SPACE: 
-                        selected_rect, selected_mask = game(items_placed, "one", win_counter)
+                        # test if the level entered was level one or level two
+                        if test_lvl == True: 
+                            selected_rect, selected_mask = game(items_placed, "one", win_counter)
+                        else:
+                            selected_rect, selected_mask = game(items_placed, "two", win_counter)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # if(gamestate != "play"):
                         
                     if one_button.collidepoint(pygame.mouse.get_pos()) == True:
                         #gamestate = "play"
                         selected_rect, selected_mask = game(items_placed, "one", win_counter)
+                        test_lvl = True
                         
                     if two_button.collidepoint(pygame.mouse.get_pos()) == True:
                         #gamestate = "play"
                         selected_rect, selected_mask = game(items_placed, "two", win_counter)
+                        test_lvl = False
 
                     mx, my = pygame.mouse.get_pos()
                     distance_x = mx - selected_rect.x
