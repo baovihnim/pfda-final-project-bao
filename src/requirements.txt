@@ -1,0 +1,2 @@
+The only 3rd party library used in this project is: 
+PyGame
