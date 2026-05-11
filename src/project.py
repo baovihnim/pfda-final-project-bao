@@ -13,19 +13,15 @@ resolution = (1920, 1080)
 screen = pygame.display.set_mode(resolution)
 font = pygame.font.SysFont("Comic Sans MS", 32)
 
-WHITE = (255,255,255)
-LIGHT = (170,170,170)
-DARK = (100,100,100)
-
 def placement():
     x_coord = random.randrange(300, 1400)
     y_coord = random.randrange(200, 700)
     return (x_coord, y_coord)
 
-def item_placement(): 
+def item_placement(level): 
     screen.fill(pygame.Color(0,0,15))
     folder = "items"
-    level_folder = "one" # level (should be string inputted)
+    level_folder = level 
     img_path = os.path.join(folder, level_folder)
     items = [ ]
     for filename in os.listdir(img_path):
@@ -62,7 +58,7 @@ def item_placement():
     (rect, mask, name) = items[selected_item]
     return True, (rect, mask, name)
 
-def game(items_placed, level):
+def game(event, items_placed, level, win_counter):
     if not items_placed:
         items_placed, (return_rect, return_mask, return_filename) = item_placement(level)
         selected_rect = return_rect
@@ -71,6 +67,14 @@ def game(items_placed, level):
         instruction = font.render(("I spy with my little eye ... a " + selected_filename + "!"), True, (255, 255, 255))
         instruction_rect = instruction.get_rect(center=(960, 900))
         screen.blit(instruction, instruction_rect)
+    if event.type == pygame.MOUSEBUTTONDOWN:    
+        mx, my = pygame.mouse.get_pos()
+        distance_x = mx - selected_rect.x
+        distance_y = my - selected_rect.y 
+        if 0 <= distance_x < selected_rect.width and 0 <= distance_y < selected_rect.height: 
+            if selected_mask.get_at((distance_x, distance_y)):
+                win_counter += 1
+                win(win_counter)
 
 def win(win_counter): 
     screen.fill(pygame.Color(0,50,15))
@@ -85,22 +89,22 @@ def main():
     win_counter = 0
     if (gamestate == "start"): 
         # start_message = font.render("I SPY ...\n\nPRESS SPACE TO START\npress esc to quit", True, (255, 255, 255))
-        start_message = font.render("I SPY ...\n\npress esc to quit", True, WHITE)
+        start_message = font.render("I SPY ...\n\npress esc to quit", True, (255, 255, 255))
         start_rect = start_message.get_rect(center=(960,540))
         screen.blit(start_message, start_rect)
-        mouse = pygame.mouse.get_pos()
 
-        play_button = pygame.Rect(300, 300, 200, 50)
-        quit_button = pygame.Rect(300, 380, 200, 50)
+        one_button = pygame.Rect(300, 300, 200, 50)
+        two_button = pygame.Rect(300, 380, 200, 50)
 
-        pygame.draw.rect(screen, LIGHT if play_button.collidepoint(mouse) else DARK, play_button)
-        pygame.draw.rect(screen, LIGHT if quit_button.collidepoint(mouse) else DARK, quit_button)
+        pygame.draw.rect(screen, (0,50,15), one_button)
+        pygame.draw.rect(screen, (0,50,15), two_button)
 
-        one_text = font.render("Theme 1", True, WHITE)
-        two_text = font.render("Theme 2", True, WHITE)
+        one_text = font.render("Theme 1", True, (255, 255, 255))
+        two_text = font.render("Theme 2", True, (255, 255, 255))
 
         screen.blit(one_text, (335, 305))
         screen.blit(two_text, (335, 385))
+        
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -108,36 +112,38 @@ def main():
             elif event.type == pygame.KEYDOWN: 
                 if event.key == pygame.K_ESCAPE:
                     running = False 
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if(gamestate != "play"):
-                        if play_button.collidepoint(mouse):
-                            gamestate = "play"
-                            game(items_placed, "one")
-                        if quit_button.collidepoint(mouse):
-                            gamestate = "play"
-                            game(items_placed, "two")
-                elif event.key == pygame.K_SPACE: 
-                    if(gamestate != "play"):
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                # if(gamestate != "play"):
+                        
+                    if one_button.collidepoint(pygame.mouse.get_pos()) == True:
                         gamestate = "play"
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if gamestate == "play":
-                    mx, my = pygame.mouse.get_pos()
-                    distance_x = mx - selected_rect.x
-                    distance_y = my - selected_rect.y 
-                    if 0 <= distance_x < selected_rect.width and 0 <= distance_y < selected_rect.height: 
-                        if selected_mask.get_at((distance_x, distance_y)):
-                            win_counter += 1
-                            win(win_counter)
+                        game(event, items_placed, "one", win_counter)
+                        
+                    if two_button.collidepoint(pygame.mouse.get_pos()) == True:
+                        gamestate = "play"
+                        game(event, items_placed, "two", win_counter)
+                #elif event.key == pygame.K_SPACE: 
+                    #if(gamestate != "play"):
+                        #gamestate = "play"
+            #elif event.type == pygame.MOUSEBUTTONDOWN:
+                #if gamestate == "play":
+                   # mx, my = pygame.mouse.get_pos()
+                    #distance_x = mx - selected_rect.x
+                    #distance_y = my - selected_rect.y 
+                    #if 0 <= distance_x < selected_rect.width and 0 <= distance_y < selected_rect.height: 
+                        #if selected_mask.get_at((distance_x, distance_y)):
+                           # win_counter += 1
+                            #win(win_counter)
         # play game :) 
-        if(gamestate == "play"):
-            if not items_placed:
-                items_placed, (return_rect, return_mask, return_filename) = item_placement()
-                selected_rect = return_rect
-                selected_mask = return_mask
-                selected_filename = return_filename 
-                instruction = font.render(("I spy with my little eye ... a " + selected_filename + "!"), True, (255, 255, 255))
-                instruction_rect = instruction.get_rect(center=(960, 900))
-                screen.blit(instruction, instruction_rect)
+        #if(gamestate == "play"):
+            #if not items_placed:
+                #items_placed, (return_rect, return_mask, return_filename) = item_placement()
+                #selected_rect = return_rect
+                #selected_mask = return_mask
+                #selected_filename = return_filename 
+                #instruction = font.render(("I spy with my little eye ... a " + selected_filename + "!"), True, (255, 255, 255))
+                #instruction_rect = instruction.get_rect(center=(960, 900))
+                #screen.blit(instruction, instruction_rect)
         #if(gamestate == "win"): 
             #screen.fill(pygame.Color(0,50,15))
             #text = font.render((f"YOU FOUND IT!\n\nitems found: {win_counter}"), True, (255, 255, 255))
