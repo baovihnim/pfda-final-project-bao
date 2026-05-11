@@ -7,14 +7,21 @@ import os
 # item counter / multiple items spied in one instance? 
 # selecting designated coordinates then would change the counter and edit the image selected, rather than leading immediately for an end game
 
+pygame.init()
+pygame.display.set_caption("I Spy")
+resolution = (1920, 1080) 
+screen = pygame.display.set_mode(resolution)
+font = pygame.font.SysFont("Comic Sans MS", 32)
+
 def placement():
     x_coord = random.randrange(300, 1400)
     y_coord = random.randrange(200, 700)
     return (x_coord, y_coord)
 
-def item_placement(screen): 
+def item_placement(): 
     screen.fill(pygame.Color(0,0,15))
     folder = "items"
+    # level_folder = level (should be string inputted)
     items = [ ]
     for filename in os.listdir(folder):
         image = os.path.join(folder, filename)
@@ -51,11 +58,6 @@ def item_placement(screen):
     return True, (rect, mask, name)
 
 def main(): 
-    pygame.init()
-    pygame.display.set_caption("I Spy")
-    resolution = (1920, 1080) 
-    screen = pygame.display.set_mode(resolution)
-    font = pygame.font.SysFont("Comic Sans MS", 32)
     running = True
     items_placed = False
     gamestate = "start"
@@ -86,7 +88,7 @@ def main():
         # play game :) 
         if(gamestate == "play"):
             if not items_placed:
-                items_placed, (return_rect, return_mask, return_filename) = item_placement(screen)
+                items_placed, (return_rect, return_mask, return_filename) = item_placement()
                 selected_rect = return_rect
                 selected_mask = return_mask
                 selected_filename = return_filename 
