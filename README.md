@@ -11,10 +11,10 @@ The user can then look for the item, and clicking it will bring them to a win sc
 < https://github.com/baovihnim/pfda-final-project-bao >
 
 ## Demonstration Video
-<>
+<https://youtu.be/3O7KsfDi6nY>
 
 ## Repository Files
-Outside of the Markdown files and the python program itself, the repository contains a folder of the images that will be randomized within the display. Images are drawn by various friends of mine.
+Outside of the Markdown files and the python program itself, the repository contains a folder of the images that will be randomized within the display. Images in theme one are drawn by various friends of mine. Images in theme two are drawn by me.
 
 ## Design Considerations 
 - **Image Adjustment**: items are rescaled to the same dimensions (longest dimension = 175) which allows for all the items to fit in the screen and be roughly uniform in size to have a display that isn't too distracting/confusing. Their location coordinates are chosen through random number generators, which allows for every run of the game to be a little bit different and not too boring. 
